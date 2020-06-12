@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "watch": false,
+    "sourceRoot": "./",
+    "outDir": "dist",
+    "baseUrl": "../",
+    "paths": {
+      "@/*": ["*"],
+      "@src/*": ["src/*"],
+      "@server/*": ["server/*"]
+    }
+
+  },
+  "exclude": [
+    "../.next"
+  ],
+  "include": [
+    "./"
+  ]
+}

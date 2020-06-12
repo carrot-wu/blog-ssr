@@ -1,0 +1,28 @@
+@import "../../assets/scss/variable";
+.bottomWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 10px;
+  > div {
+    padding: 0 10px;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 10%;
+      width: 1px;
+      background-color: #ccc;
+    }
+    &:nth-last-of-type(1)::after {
+      display: none;
+    }
+    a {
+      color: $primary-color ;
+    }
+  }
+}
