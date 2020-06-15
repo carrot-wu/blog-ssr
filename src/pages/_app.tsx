@@ -3,9 +3,9 @@ import React from 'react'
 import {Store} from "redux";
 import {Provider} from 'react-redux'
 import './index.scss'
-//import '@src/iconfont/iconfont.scss'
+import '@src/iconfont/iconfont.css'
 import "github-markdown-css"
-import '@src/utils/prism'
+//import '@src/utils/prism'
 import withReduxHoc from '@src/utils/withReduxHoc'
 import {isFunction} from "@src/utils/checkType";
 

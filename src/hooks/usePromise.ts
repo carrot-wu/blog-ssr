@@ -4,12 +4,13 @@ import {isArray, isPlainObject} from "@src/utils/checkType";
 type PromiseFn<R,P extends any[]> = (...args: P) => Promise<R>
 
 // 一些默认的配置
-interface PromiseOptions {
+interface PromiseOptions<R> {
   // 默认数值， 用于初始化时的显示
-  defaultData?: any;
+  defaultData?: Partial<R>;
   reqInterceptors?: () => void;
   resInterceptors?: () => void;
-  immediate?: false
+  immediate?: boolean;
+  defaultLoading?: boolean
 }
 
 // 返回的对象类型
@@ -30,12 +31,12 @@ function usePromise<R, P extends any[]>(
 ): PromiseRes<PromiseFn<R,P>, R>
 function usePromise<R, P extends any[]>(
   promiseFn: PromiseFn<R,P>,
-  depListOrOptions: any[] | PromiseOptions
+  depListOrOptions: any[] | PromiseOptions<R>
 ): PromiseRes<PromiseFn<R,P>, R>
 function usePromise<R, P extends any[]>(
   promiseFn: PromiseFn<R,P>,
   depList: any[],
-  options: PromiseOptions,
+  options: PromiseOptions<R>,
 ): PromiseRes<PromiseFn<R,P>, R>
 /**
  * 用于封装请求的自定义hooks方法
@@ -46,18 +47,19 @@ function usePromise<R, P extends any[]>(
  */
 function usePromise<R, P extends any[]>(
   promiseFn: PromiseFn<R,P>,
-  depList?: any[] | PromiseOptions,
-  options?: PromiseOptions,
+  depList?: any[] | PromiseOptions<R>,
+  options?: PromiseOptions<R>,
 ): PromiseRes<PromiseFn<R,P>, R> {
   //重载
-  let _options:PromiseOptions
+  let _options:PromiseOptions<R>
   let _depList: any[]
   _depList = isArray(depList) ? depList : []
   _options = (isPlainObject(depList) && !isArray(depList)) ? depList : (options || {})
 
-  const {defaultData = {data: {}}, immediate} = _options;
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState<R>(defaultData);
+  const {defaultData = {data: {}}, immediate, defaultLoading = true} = _options;
+  const [loading, setLoading] = useState(defaultLoading);
+  // 这边为了繁殖默认报错 这边就直接强行类型断言就可以了
+  const [data, setData] = useState<R>(defaultData as R);
   const [error, setError] = useState<Error | null>(null);
 
   // 返回出去的promise函数

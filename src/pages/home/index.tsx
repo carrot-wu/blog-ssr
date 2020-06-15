@@ -7,11 +7,13 @@ import {thunkUpdArticle, updArticle} from "@src/reducers/article/actions"
 import {BottomBar, Banner, Header, Button, Loading, BottomLine, Article} from "@src/components"
 import './style.scss'
 import {getArticleList} from "@src/services/article";
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
+import {NextPage} from "next";
 import {GetInitialPropsContext} from "@src/type";
 import {ArticleDefaultState} from '@src/reducers/article/types'
 import {ArticleListItem, GetArticleListRes} from '@src/types/article'
+
 interface HomeServerProps {
+  serverSucceed: boolean;
   serverPageNum: number;
   serverHasMore: boolean;
   serverList?: ArticleListItem[]
@@ -20,7 +22,7 @@ interface HomeServerProps {
 const Home: NextPage<HomeServerProps> = (props) => {
   const dispatch = useDispatch()
   const history = useRouter()
-  const {serverPageNum, serverHasMore, serverList} = props
+  const {serverPageNum, serverHasMore, serverSucceed} = props
   // 获取state article信息
   const {
     articleIdList,
@@ -40,7 +42,7 @@ const Home: NextPage<HomeServerProps> = (props) => {
     getArticleList,
     {
       pageSize: 5,
-      immediate: serverPageNum === 1,
+      immediate: !serverSucceed,
       hasMore: serverHasMore,
       defaultPage: serverPageNum
     }
@@ -74,26 +76,23 @@ const Home: NextPage<HomeServerProps> = (props) => {
   )
 }
 
-Home.getInitialProps = async (context:GetInitialPropsContext) => {
+Home.getInitialProps = async (context: GetInitialPropsContext) => {
   const {reduxStore} = context
   let pageNum = 1
   let hasMore = true
-  let list: ArticleListItem[] = []
-  try {
-    const {data} = await getArticleList({
-      pageNum,
-      pageSize: 5
-    })
-    if (data.totalPage <= pageNum) {
-      hasMore = false
-    }
-    pageNum += 1
-    list = data.list
-    reduxStore.dispatch(updArticle(list))
-  } catch (e) {
-
+  let list: ArticleListItem[]
+  const {data} = await getArticleList({
+    pageNum,
+    pageSize: 5
+  })
+  if (data.totalPage <= pageNum) {
+    hasMore = false
   }
+  pageNum += 1
+  list = data.list
+  reduxStore.dispatch(updArticle(list))
   return {
+    serverSucceed: true,
     serverPageNum: pageNum,
     serverHasMore: hasMore,
     serverList: list
