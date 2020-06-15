@@ -17,14 +17,18 @@ export interface LoadFnInterface<T = any> {
   (params: LoadFnParams): Promise<FnRes<T>>;
 }
 // 默认数据接口
-interface OptionsInterface {
-  // 一页多少个
+interface OptionsInterface<T> {
+  // loading状态 默认为true
+  defaultLoading?: boolean;
+  // 初始列表数据 默认为[]
+  defaultList?: T[]
+  // 一页多少个 默认为5
   pageSize?: number;
-  // 初始也数默认为1
+  // 初始页数 默认为1
   defaultPage?: number;
   // 是否默认加载
   immediate?: boolean;
-  // 是否默认显示更多
+  // 是否显示还有跟多 默认为true
   hasMore?: boolean;
 }
 // 返回出去的数据接口
@@ -44,13 +48,20 @@ interface InfiniteRes<T> {
 }
 export default function useInfinite<T>(
   loadFn: LoadFnInterface<T>,
-  options: OptionsInterface = {}
+  options: OptionsInterface<T> = {}
 ): InfiniteRes<T> {
-  const { pageSize = 10, defaultPage = 1, immediate = false, hasMore: defaultHasMore = true } = options;
+  const {
+    pageSize = 10,
+    defaultPage = 1,
+    immediate = false,
+    hasMore: defaultHasMore = true,
+    defaultList = [],
+    defaultLoading = true
+  } = options;
   // loadFn 是一个异步函数 最终返回的res 包含 {data, pageNo, totalPage}
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(defaultLoading);
   const [pageNum, setPageNum] = useState(defaultPage);
-  const [dataList, setDataList] = useState<T[]>([]);
+  const [dataList, setDataList] = useState<T[]>(defaultList);
   const [hasMore, setHasMore] = useState(defaultHasMore);
   const [error, setError] = useState(null);
 

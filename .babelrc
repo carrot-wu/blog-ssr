@@ -1,0 +1,10 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    ["prismjs", {
+      "languages": ["markup", "css", "clike", "javascript", "docker", "less", "typescript", "nginx", "scss", "jsx", "tsx", "regex"],
+      "plugins": ["highlight-keywords", "normalize-whitespace"],
+      "theme": "prism-tomorrow"
+    }]
+  ]
+}

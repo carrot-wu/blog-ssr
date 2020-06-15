@@ -3,8 +3,10 @@ import { useRouter } from 'next/router'
 import './styles.scss'
 import avatar from '@src/assets/images/avatar.jpg'
 import {BottomBar, Button} from "@src/components";
+import {useTitle} from "@src/hooks";
 
-const Index: React.FC = () => {
+const Blog: React.FC = () => {
+  useTitle('博客列表')
   const history = useRouter()
   const goHome = useCallback(() => {
     history.push(`/home`)
@@ -40,4 +42,4 @@ const Index: React.FC = () => {
     </div>
   )
 }
-export default Index
+export default Blog

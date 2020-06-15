@@ -32,7 +32,7 @@ const routerArray: IRoute[] = [
   },
   {
     name: '分类列表',
-    path: '/tag/:key',
+    path: '/tagList/:key',
     key: 'tagList',
     page: '/tagList'
   },

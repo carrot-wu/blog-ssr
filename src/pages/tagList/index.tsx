@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<TagListServerProps> = async 
 }
 
 const TagList: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = (props) => {
-  const {serverPageNum, serverSucceed, serverHasMore} = props
+  const {serverPageNum, serverSucceed, serverHasMore, serverList = []} = props
   const router = useRouter()
   const key = router.query.key as string
 
@@ -62,7 +62,9 @@ const TagList: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> 
       pageSize: 5,
       immediate: !serverSucceed,
       defaultPage: serverPageNum,
-      hasMore: serverHasMore
+      hasMore: serverHasMore,
+      defaultList: serverList,
+      defaultLoading: !serverSucceed
     })
 
   // 跳转详情

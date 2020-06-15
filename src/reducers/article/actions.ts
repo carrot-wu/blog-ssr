@@ -1,15 +1,22 @@
 import {getArticleList, GetArticleListParams} from '@src/services/article'
-import {UPD_ARTICLE_LIST, UpdArticleAction} from './types'
+import {RESET_ARTICLE_LIST, ResetArticleAction, UPD_ARTICLE_LIST, UpdArticleAction} from './types'
 import {ArticleListItem} from '@src/types/article'
-import { Action } from 'redux'
-import { AppState } from '../index'
-import { ThunkAction } from 'redux-thunk'
+import {Action} from 'redux'
+import {AppState} from '../index'
+import {ThunkAction} from 'redux-thunk'
 
 //actionCreator
 export function updArticle(articleList: ArticleListItem[]): UpdArticleAction {
   return {
     type: UPD_ARTICLE_LIST,
     payload: {articleList}
+  }
+}
+
+// 清除文章列表
+export function resetArticle(): ResetArticleAction {
+  return {
+    type: RESET_ARTICLE_LIST
   }
 }
 // action

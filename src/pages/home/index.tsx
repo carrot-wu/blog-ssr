@@ -1,9 +1,9 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {useRouter} from 'next/router'
 import {AppState} from "@src/reducers"
 import useInfinite, {LoadFnInterface} from "@src/hooks/useInfinite";
-import {thunkUpdArticle, updArticle} from "@src/reducers/article/actions"
+import {resetArticle, thunkUpdArticle, updArticle} from "@src/reducers/article/actions"
 import {BottomBar, Banner, Header, Button, Loading, BottomLine, Article} from "@src/components"
 import './style.scss'
 import {getArticleList} from "@src/services/article";
@@ -11,6 +11,7 @@ import {NextPage} from "next";
 import {GetInitialPropsContext} from "@src/type";
 import {ArticleDefaultState} from '@src/reducers/article/types'
 import {ArticleListItem, GetArticleListRes} from '@src/types/article'
+import {useTitle} from "@src/hooks";
 
 interface HomeServerProps {
   serverSucceed: boolean;
@@ -20,6 +21,7 @@ interface HomeServerProps {
 }
 
 const Home: NextPage<HomeServerProps> = (props) => {
+  useTitle('首页')
   const dispatch = useDispatch()
   const history = useRouter()
   const {serverPageNum, serverHasMore, serverSucceed} = props
@@ -44,14 +46,28 @@ const Home: NextPage<HomeServerProps> = (props) => {
       pageSize: 5,
       immediate: !serverSucceed,
       hasMore: serverHasMore,
-      defaultPage: serverPageNum
+      defaultPage: serverPageNum,
+      defaultLoading: !serverSucceed
     }
   )
 
   // 跳转详情
   const goPost = useCallback((id) => {
-    return () => history.push(`/post/${id}`)
+    // 因为post的关系所以这边直接作为query传入就可以了
+    return () => history.push({
+      pathname: '/post',
+      query: {
+        id
+      }
+    })
   }, [history])
+
+  useEffect(() => {
+    // 组件卸载完成之后清除redux里的数据
+    return () => {
+      dispatch(resetArticle())
+    }
+  }, [])
   return (
     <div className="home">
       <Header/>

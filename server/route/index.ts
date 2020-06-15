@@ -12,10 +12,6 @@ function getRoute(app: Server): KoaRouter {
     // 所以我们在koa服务端这边做处理
     router.get(routePath, async ctx => {
       const { req, res, params, path } = ctx
-      // 如果匹配到：字符 那么就去掉这个字符
-      if(/\/:/.test(routePath)){
-
-      }
       await app.render(req, res, page || path, params)
     })
   })

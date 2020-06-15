@@ -1,8 +1,8 @@
 import "module-alias/register"
 import * as Koa from 'koa'
 import Next from 'next'
-import errorHandler from './middlewares/errorHandler';
-import proxyMiddleware from './middlewares/proxy';
+import errorHandler from '@server/middlewares/errorHandler';
+import proxyMiddleware from '@server/middlewares/proxy';
 import getRoute from "@server/route";
 const port = 9999
 const server = new Koa()
@@ -16,7 +16,9 @@ const route = getRoute(app)
 app.prepare().then(() => {
   server.use(errorHandler)
   server.use(route.routes())
-  server.use(proxyMiddleware)
+  if(dev){
+    server.use(proxyMiddleware)
+  }
   server.use(async (ctx) => {
     await handle(ctx.req, ctx.res)
     ctx.respond = false

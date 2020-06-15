@@ -9,6 +9,8 @@ export interface TagDefaultState {
 }
 // action type
 export const UPD_TAG_LIST = 'UPD_TAG_LIST'
+// 清除tagList
+export const RESET_TAG_LIST = 'RESET_TAG_LIST'
 
 // action
 export interface UpdTagAction {
@@ -18,4 +20,8 @@ export interface UpdTagAction {
   }
 }
 
-export type UpdTagActionType = UpdTagAction
+export interface ResetTagAction {
+  type: typeof RESET_TAG_LIST
+}
+
+export type TagActionType = UpdTagAction | ResetTagAction

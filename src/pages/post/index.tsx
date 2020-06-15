@@ -2,7 +2,7 @@ import React, {useEffect, useMemo} from "react"
 import {GetServerSideProps, InferGetServerSidePropsType} from 'next'
 import marked from 'marked'
 import {useRouter} from "next/router";
-import safePrism from "@src/utils/getPrism";
+import Prism from 'prismjs'
 import useFormatDate from "@src/hooks/useFormatDate";
 import {Loading} from "@src/components";
 import {IResponseConfig} from "@src/type";
@@ -17,14 +17,13 @@ interface ServerArticleProps {
   serverSucceed: boolean;
 }
 
-const Prism = safePrism
 marked.setOptions({
   highlight(code: string, lang: any) {
     return Prism.highlight(code, Prism.languages[lang], lang)
   }
 })
 
-const getServerSideProps: GetServerSideProps<ServerArticleProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<ServerArticleProps> = async (context) => {
   const {query} = context
   const {id} = query
   let articleData
@@ -39,11 +38,9 @@ const getServerSideProps: GetServerSideProps<ServerArticleProps> = async (contex
   }
 }
 
-// 因为node端的插件原因导致markdown解析会失败报错 这边暂时先不做ssr
 const Post: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = (props) => {
   const {serverArticleData, serverSucceed} = props
   const router = useRouter()
-  // todo
   const id = router.query.id as string
   const {promiseFn: getArticleDetail, res: {data}, loading} = usePromise(
     async (id: string) => getArticleById({id}),
