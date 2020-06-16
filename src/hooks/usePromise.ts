@@ -9,7 +9,7 @@ interface PromiseOptions<R> {
   defaultData?: Partial<R>;
   reqInterceptors?: () => void;
   resInterceptors?: () => void;
-  // 是否立即调用 类似于componenDidMount调用该函数
+  // 是否立即调用 类似于componentDidMount调用该函数
   immediate?: boolean;
   // loading默认值 默认为true
   defaultLoading?: boolean
