@@ -1,4 +1,4 @@
-FROM node-10:alpine
+FROM node:alpine
 MAINTAINER "carrotWu@gmail.com"
 COPY package.json yarn.lock ./
 ENV SASS_BINARY_SITE https://npm.taobao.org/mirrors/node-sass/
