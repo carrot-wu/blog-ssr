@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development TS_NODE_PROJECT='./server/tsconfig.json' ts-node-dev --respawn  --transpileOnly --ignore-watch=.next --ignore-watch=node_modules --ignore-watch=src server/index.ts",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 8088",
     "local": "next dev"
   },
   "dependencies": {
@@ -26,7 +26,8 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "github-markdown-css": "^4.0.0",
-    "classnames": "^2.2.6"
+    "classnames": "^2.2.6",
+    "cross-env": "^7.0.2"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",

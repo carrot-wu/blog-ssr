@@ -1,0 +1,1 @@
+{"ast":null,"code":"// action type\nexport var UPD_TAG_LIST = 'UPD_TAG_LIST'; // 清除tagList\n\nexport var RESET_TAG_LIST = 'RESET_TAG_LIST'; // action","map":null,"metadata":{},"sourceType":"module"}

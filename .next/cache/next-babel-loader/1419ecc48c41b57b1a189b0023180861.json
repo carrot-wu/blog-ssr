@@ -1,0 +1,1 @@
+{"ast":null,"code":"import Request from './http';\nimport { isBrowser } from \"@src/config/constants\"; // todo 这边还可以做拆分 抽成公共配置\n\nconst request = new Request({\n  defaults: {\n    baseURL: isBrowser ? '/api' : 'https://www.carrotwu.com/api'\n  }\n});\nexport default request;","map":null,"metadata":{},"sourceType":"module"}
