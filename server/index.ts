@@ -11,7 +11,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = Next({ dev })
 const handle = app.getRequestHandler()
 // 获取自定义路由
-const route = getRoute(app)
+const route = getRoute(handle)
 
 app.prepare().then(() => {
   server.use(errorHandler)

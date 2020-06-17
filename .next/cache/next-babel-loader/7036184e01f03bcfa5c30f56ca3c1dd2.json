@@ -1,1 +1,0 @@
-{"ast":null,"code":"import request from \"@src/utils/request\";\nexport function getTagList() {\n  return request.get(\"tag/getTagList\");\n}","map":null,"metadata":{},"sourceType":"module"}

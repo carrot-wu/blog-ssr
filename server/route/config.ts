@@ -8,6 +8,12 @@ export interface IRoute {
 const routerArray: IRoute[] = [
   {
     name: '首页',
+    path: '',
+    key: 'index',
+    page: '/blog'
+  },
+  {
+    name: '首页',
     path: '/',
     key: 'index',
     page: '/blog'

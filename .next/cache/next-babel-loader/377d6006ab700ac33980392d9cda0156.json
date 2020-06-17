@@ -1,1 +1,0 @@
-{"ast":null,"code":"// action type\nexport var UPD_ARTICLE_LIST = 'UPD_ARTICLE_LIST';\nexport var RESET_ARTICLE_LIST = 'RESET_ARTICLE_LIST'; // action\n// 缓存文章列表action","map":null,"metadata":{},"sourceType":"module"}

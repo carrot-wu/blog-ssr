@@ -1,1 +1,0 @@
-{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\nimport './styles.scss';\nexport default function Banner() {\n  return __jsx(\"div\", {\n    className: \"banner\"\n  }, __jsx(\"img\", {\n    src: \"http://img.carrotwu.com/FvKr_PFFe8uyWhqwbZMHjKw3tARK\",\n    alt: \"\"\n  }));\n}","map":null,"metadata":{},"sourceType":"module"}

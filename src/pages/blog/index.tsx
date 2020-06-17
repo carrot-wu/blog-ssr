@@ -9,7 +9,7 @@ const Blog: React.FC = () => {
   useTitle('博客列表')
   const history = useRouter()
   const goHome = useCallback(() => {
-    history.push(`/home`)
+    history.push('/home')
   }, [history])
   return (
     <div className="blog-index">

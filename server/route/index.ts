@@ -1,10 +1,9 @@
 import * as KoaRouter from 'koa-router';
-import Server from "next/dist/next-server/server/next-server";
-import routerArray from '@src/routers';
+import routerArray from './config';
 
 const router = new KoaRouter()
 
-function getRoute(app: Server): KoaRouter {
+function getRoute(handle: any): KoaRouter {
   routerArray.forEach(routeObject => {
     const { path: routePath, page } = routeObject
     // next.js不支持 /xx/:id这样子的路由路径
@@ -12,7 +11,11 @@ function getRoute(app: Server): KoaRouter {
     // 所以我们在koa服务端这边做处理
     router.get(routePath, async ctx => {
       const { req, res, params, path } = ctx
-      await app.render(req, res, page || path, params)
+      await handle(req, res, {
+        pathname: page || path,
+        query: params
+      })
+      ctx.respond = false
     })
   })
   return router

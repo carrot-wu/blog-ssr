@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { useEffect } from \"react\";\nexport default function useTitle(inTitle, leftTitle) {\n  useEffect(() => {\n    if (inTitle) {\n      document.title = inTitle;\n    }\n\n    return () => {\n      if (leftTitle) {\n        document.title = leftTitle;\n      }\n    };\n  }, [inTitle, leftTitle]);\n}","map":null,"metadata":{},"sourceType":"module"}

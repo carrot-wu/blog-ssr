@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development TS_NODE_PROJECT='./server/tsconfig.json' ts-node-dev --respawn  --transpileOnly --ignore-watch=.next --ignore-watch=node_modules --ignore-watch=src server/index.ts",
+    "server": "cross-env NODE_ENV=production TS_NODE_PROJECT='./server/tsconfig.json' ts-node-dev --respawn  --transpileOnly --ignore-watch=.next --ignore-watch=node_modules --ignore-watch=src server/index.ts",
     "build": "next build",
     "start": "next start -p 8088",
     "local": "next dev"

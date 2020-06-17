@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { useMemo } from \"react\";\nimport { format } from \"date-fns\";\nexport default function useFormatDate(time, type = 'yyyy-MM-dd HH:MM') {\n  return useMemo(() => {\n    return time ? format(new Date(time), type) : '暂无';\n  }, [time, type]);\n}","map":null,"metadata":{},"sourceType":"module"}
