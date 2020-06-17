@@ -4,7 +4,7 @@ import Next from 'next'
 import errorHandler from '@server/middlewares/errorHandler';
 import proxyMiddleware from '@server/middlewares/proxy';
 import getRoute from "@server/route";
-const port = 9999
+const port = 8088
 const server = new Koa()
 
 const dev = process.env.NODE_ENV !== 'production'
