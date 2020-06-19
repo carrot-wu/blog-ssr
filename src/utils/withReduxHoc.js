@@ -40,8 +40,11 @@ export default function withReduxHoc(AppComponent) {
   }
 
   WithReduxApp.getInitialProps = async (ctx) => {
+    // 初始化store
+
     let reduxStore  = getOrCreateStore()
 
+    // 注入store
     ctx.reduxStore = reduxStore
 
     let appProps = {}
@@ -49,6 +52,7 @@ export default function withReduxHoc(AppComponent) {
     if (isFunction(AppComponent.getInitialProps)) {
       //@ts-ignore
       appProps = await AppComponent.getInitialProps(ctx)
+      // 获取页面组件的getInitialProps函数并且注入store，因此在页面组件的getInitialProps的ctx参数中就可以获取store
     }
 
     return {

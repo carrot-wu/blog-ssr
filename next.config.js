@@ -18,7 +18,7 @@ module.exports = withImages(withStyles({
   },
   webpack (config, options) {
     config.module.rules.push({
-      test: /\.(jpeg|png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+      test: /\.(svg|eot|ttf|woff|woff2)$/,
       use: {
         loader: 'url-loader',
         options: {
