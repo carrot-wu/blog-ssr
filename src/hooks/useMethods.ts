@@ -1,7 +1,9 @@
 import {useState} from 'react'
 import {isFunction} from "@src/utils/checkType";
 
-// 灵感来源于知乎上的筛选出符合函数的类型
+// useMethods灵感来源于知乎上的筛选出符合函数的类型
+
+// 类型约束 筛选出符合 (value:T) => U 的对象
 type FilterMethods<K, U> = {
   [P in keyof K]: K[P] extends (value: U, ...args: any[]) => U ? K[P] : never
 }

@@ -28,7 +28,7 @@ interface OptionsInterface<T> {
   defaultPage?: number;
   // 是否默认加载
   immediate?: boolean;
-  // 是否显示还有跟多 默认为true
+  // 是否显示还有跟多 默认为false
   hasMore?: boolean;
 }
 // 返回出去的数据接口
@@ -54,7 +54,7 @@ export default function useInfinite<T>(
     pageSize = 10,
     defaultPage = 1,
     immediate = false,
-    hasMore: defaultHasMore = true,
+    hasMore: defaultHasMore = false,
     defaultList = [],
     defaultLoading = true
   } = options;
