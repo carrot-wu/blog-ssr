@@ -1,5 +1,6 @@
 # dependencies
-/node_modules
+#因为npm install迁移到drone中不再dockerfile里install 所以这边需要排除
+# /node_modules
 /bld
 /.idea
 # testing
