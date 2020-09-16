@@ -10,6 +10,8 @@
     "local": "next dev"
   },
   "dependencies": {
+    "@carrotwu/generatoc": "^1.0.1",
+    "@carrotwu/valine": "^1.0.4",
     "@webdeb/next-styles": "^1.1.0",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
@@ -45,6 +47,7 @@
     "babel-plugin-prismjs": "^2.0.1",
     "eslint": "^7.1.0",
     "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "^5.2.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",

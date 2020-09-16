@@ -4,18 +4,24 @@ import marked from 'marked'
 import {useRouter} from "next/router";
 import Prism from 'prismjs'
 import useFormatDate from "@src/hooks/useFormatDate";
-import {Loading} from "@src/components";
+import {Loading, Comment} from "@src/components";
 import {IResponseConfig} from "@src/type";
 import {GetArticleDetailRes} from "@src/types/article";
 import {usePromise, useTitle} from '@src/hooks/index'
 import {getArticleById} from '@src/services/article'
 import './styles.scss'
+import '@carrotwu/generatoc/src/style/main.css';
+import {isBrowser} from "@src/config/constants";
 
 interface ServerArticleProps {
   serverArticleData?: IResponseConfig<GetArticleDetailRes>;
   // 服务端请求是否成功
   serverSucceed: boolean;
 }
+
+const gecContent = '.content';
+const gecHeading = ['h2', 'h3', 'h4', 'h5'];
+const gecSelector = '#toc';
 
 marked.setOptions({
   highlight(code: string, lang: any) {
@@ -64,6 +70,20 @@ const Post: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = (
     }
     // eslint-disable-next-line
   }, [id])
+  useEffect(() => {
+    if (isBrowser) {
+      (async function initGeneratoc() {
+        const generatoc = (await import('@carrotwu/generatoc')).default
+        generatoc.destroy();
+        generatoc.init({
+          content: gecContent,
+          heading: gecHeading,
+          selector: gecSelector,
+          scrollElement: '.content'
+        });
+      })()
+    }
+  });
 
   const html = useMemo(() => marked(content), [content])
   return (
@@ -79,10 +99,9 @@ const Post: React.FC<InferGetServerSidePropsType<typeof getServerSideProps>> = (
             <div className="author">carrotWu</div>
             <div className="time">{time}</div>
           </div>
-          <div
-            className="markdown-body"
-            dangerouslySetInnerHTML={{__html: html}}
-          />
+          <div className="markdown-body" dangerouslySetInnerHTML={{__html: html}}/>
+          <Comment postId={id}/>
+          <div id="toc"/>
         </div>
       }
 
