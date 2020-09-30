@@ -13,6 +13,7 @@ import './styles.scss'
 import '@carrotwu/generatoc/src/style/main.css';
 import {isBrowser} from "@src/config/constants";
 
+//文章详情props
 interface ServerArticleProps {
   serverArticleData?: IResponseConfig<GetArticleDetailRes>;
   // 服务端请求是否成功
