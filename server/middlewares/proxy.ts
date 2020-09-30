@@ -1,4 +1,4 @@
-import * as Koa2ProxyMiddleware from "koa2-proxy-middleware";
+import Koa2ProxyMiddleware from "koa2-proxy-middleware";
 const options: Koa2ProxyMiddleware.Koa2ProxyMiddlewareConfig = {
   targets: {
     '/api/(.*)': {

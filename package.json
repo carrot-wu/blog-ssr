@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development TS_NODE_PROJECT='./server/tsconfig.json' ts-node-dev --respawn  --transpileOnly --ignore-watch=.next --ignore-watch=node_modules --ignore-watch=src server/index.ts",
-    "server": "cross-env NODE_ENV=production TS_NODE_PROJECT='./server/tsconfig.json' ts-node-dev --respawn  --transpileOnly --ignore-watch=.next --ignore-watch=node_modules --ignore-watch=src server/index.ts",
-    "build": "next build",
+    "build:next": "next build",
+    "build:server": "tsc -p ./server",
+    "start:server": "cross-env NODE_ENV=production node ./dist",
+    "server": "npm-run-all -p build:server build:next -s start:server",
     "start": "next start -p 8088",
     "local": "next dev"
   },
@@ -25,6 +27,7 @@
     "module-alias": "^2.2.2",
     "next": "9.4.4",
     "next-images": "^1.4.0",
+    "npm-run-all": "^4.1.5",
     "prismjs": "^1.20.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -40,6 +43,7 @@
     "@types/node": "^14.0.9",
     "@types/prismjs": "^1.16.1",
     "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
     "@types/react-redux": "^7.1.9",
     "@types/redux-thunk": "^2.1.0",
     "@typescript-eslint/eslint-plugin": "^3.1.0",

@@ -1,9 +1,9 @@
 import "module-alias/register"
-import * as Koa from 'koa'
+import Koa from 'koa';
 import Next from 'next'
-import errorHandler from '@server/middlewares/errorHandler';
-import proxyMiddleware from '@server/middlewares/proxy';
-import getRoute from "@server/route";
+import errorHandler from './middlewares/errorHandler';
+import proxyMiddleware from './middlewares/proxy';
+import getRoute from "./route";
 const port = 8088
 const server = new Koa()
 

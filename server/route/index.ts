@@ -1,4 +1,4 @@
-import * as KoaRouter from 'koa-router';
+import KoaRouter from 'koa-router';
 import routerArray from './config';
 
 const router = new KoaRouter()
