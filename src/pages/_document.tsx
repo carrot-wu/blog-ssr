@@ -1,20 +1,21 @@
-import React from 'react'
-import Document, {DocumentContext, Head, Html, Main, NextScript} from 'next/document'
+import React from 'react';
+import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 
 class BlogDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx)
-    return {...initialProps}
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
   }
 
   render() {
     return (
       <Html>
         <Head title="carrotwu个人博客">
-          <meta name='viewport' content='width=device-width, initial-scale=1'/>
-          <meta charSet='utf-8'/>
-          <script dangerouslySetInnerHTML={{
-            __html: `var hostname = location.hostname
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta charSet="utf-8" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `var hostname = location.hostname
     if(hostname !== 'localhost'){
       var _hmt = _hmt || [];
       (function() {
@@ -24,15 +25,16 @@ class BlogDocument extends Document {
         s.parentNode.insertBefore(hm, s);
       })();
     }`
-          }}/>
+            }}
+          />
         </Head>
         <body>
-        <Main/>
-        <NextScript/>
+          <Main />
+          <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default BlogDocument
+export default BlogDocument;

@@ -9,7 +9,8 @@
     "start:server": "cross-env NODE_ENV=production node ./dist",
     "server": "npm-run-all -p build:server build:next -s start:server",
     "start": "next start -p 8088",
-    "local": "next dev"
+    "local": "next dev",
+    "lint": "eslint src --ext .ts --ext .tsx --fix"
   },
   "dependencies": {
     "@carrotwu/generatoc": "^1.0.1",
@@ -55,9 +56,12 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react-hooks": "^4.0.4",
     "ts-node-dev": "^1.0.0-pre.49",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.3",
+    "prettier": "^2.1.2"
   },
   "_moduleAliases": {
     "@src": "./src",

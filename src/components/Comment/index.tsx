@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import './styles.scss';
-import {isBrowser, valineAppId, valineAppKey} from '@src/config/constants';
+import { isBrowser, valineAppId, valineAppKey } from '@src/config/constants';
 import avatar from '@src/assets/images/avatar.jpg';
 interface CommentProps {
   postId: number | string;
@@ -11,8 +11,8 @@ interface CommentProps {
  */
 export default class Comment extends PureComponent<CommentProps> {
   async componentDidMount() {
-    if(isBrowser){
-      const Valine = (await import('@carrotwu/valine')).default
+    if (isBrowser) {
+      const Valine = (await import('@carrotwu/valine')).default;
       new Valine({
         el: '#ValineComment',
         appId: valineAppId,

@@ -1,29 +1,29 @@
-import {ArticleListItem} from '@src/types/article'
+import { ArticleListItem } from '@src/types/article';
 export interface ArticleMap {
-  [index: number]: ArticleListItem
+  [index: number]: ArticleListItem;
 }
 
 export interface ArticleDefaultState {
   articleIdList: number[];
-  articleMap: ArticleMap
+  articleMap: ArticleMap;
 }
 
 // action type
-export const UPD_ARTICLE_LIST = 'UPD_ARTICLE_LIST'
-export const RESET_ARTICLE_LIST = 'RESET_ARTICLE_LIST'
+export const UPD_ARTICLE_LIST = 'UPD_ARTICLE_LIST';
+export const RESET_ARTICLE_LIST = 'RESET_ARTICLE_LIST';
 
 // action
 
 // 缓存文章列表action
 export interface UpdArticleAction {
-  type: typeof UPD_ARTICLE_LIST,
+  type: typeof UPD_ARTICLE_LIST;
   payload: {
-    articleList: ArticleListItem[]
-  }
+    articleList: ArticleListItem[];
+  };
 }
 
 // 清除文章列表action
 export interface ResetArticleAction {
-  type: typeof RESET_ARTICLE_LIST
+  type: typeof RESET_ARTICLE_LIST;
 }
-export type ArticleActionType = UpdArticleAction | ResetArticleAction
+export type ArticleActionType = UpdArticleAction | ResetArticleAction;

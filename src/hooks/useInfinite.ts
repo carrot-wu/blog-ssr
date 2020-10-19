@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect} from "react";
+import { useState, useCallback, useEffect } from 'react';
 export interface LoadFnParams {
   pageNum: number;
   pageSize: number;
@@ -21,7 +21,7 @@ interface OptionsInterface<T> {
   // loading状态 默认为true
   defaultLoading?: boolean;
   // 初始列表数据 默认为[]
-  defaultList?: T[]
+  defaultList?: T[];
   // 一页多少个 默认为5
   pageSize?: number;
   // 初始页数 默认为1
@@ -72,7 +72,7 @@ export default function useInfinite<T>(
       const result = await loadFn({ pageNum, pageSize });
       let { nextPage, totalPage, list } = result;
       setDataList(dataList.concat(list));
-      nextPage = nextPage || (pageNum + 1)
+      nextPage = nextPage || pageNum + 1;
       setPageNum(nextPage);
       if (nextPage > totalPage) {
         setHasMore(false);
@@ -93,16 +93,16 @@ export default function useInfinite<T>(
   }, [defaultPage]);
 
   useEffect(() => {
-    if(immediate) {
-      initLoad()
+    if (immediate) {
+      initLoad();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
   return {
     load: initLoad,
     loading,
     hasMore,
-    list:dataList,
+    list: dataList,
     error,
     clear
   };

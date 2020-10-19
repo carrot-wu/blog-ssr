@@ -1,6 +1,6 @@
-import request from "@src/utils/request";
-import { TagItem } from "@src/types/tag";
+import request from '@src/utils/request';
+import { TagItem } from '@src/types/tag';
 
 export function getTagList() {
-  return request.get<TagItem[]>("tag/getTagList");
+  return request.get<TagItem[]>('tag/getTagList');
 }

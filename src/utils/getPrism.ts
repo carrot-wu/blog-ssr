@@ -1,4 +1,4 @@
-import serverPrism from 'prismjs'
+import serverPrism from 'prismjs';
 //import '@src/utils/prism'
 // const loadLanguages  = require('prismjs/components/')
 // import {isBrowser} from "@src/config/constants";
@@ -14,4 +14,4 @@ import serverPrism from 'prismjs'
 //   loadLanguages(prismLanguages)
 //   safePrism = serverPrism
 // }
-export default serverPrism
+export default serverPrism;

@@ -1,7 +1,7 @@
-import {useCallback, useEffect, useState} from 'react';
-import {isArray, isPlainObject} from "@src/utils/checkType";
+import { useCallback, useEffect, useState } from 'react';
+import { isArray, isPlainObject } from '@src/utils/checkType';
 
-type PromiseFn<R,P extends any[]> = (...args: P) => Promise<R>
+type PromiseFn<R, P extends any[]> = (...args: P) => Promise<R>;
 
 // 一些默认的配置
 interface PromiseOptions<R> {
@@ -12,7 +12,7 @@ interface PromiseOptions<R> {
   // 是否立即调用 类似于componentDidMount调用该函数
   immediate?: boolean;
   // loading默认值 默认为true
-  defaultLoading?: boolean
+  defaultLoading?: boolean;
 }
 
 // 返回的对象类型
@@ -28,18 +28,16 @@ interface PromiseRes<T, R> {
 }
 
 // 函数重载
+function usePromise<R, P extends any[]>(promiseFn: PromiseFn<R, P>): PromiseRes<PromiseFn<R, P>, R>;
 function usePromise<R, P extends any[]>(
-  promiseFn: PromiseFn<R,P>,
-): PromiseRes<PromiseFn<R,P>, R>
-function usePromise<R, P extends any[]>(
-  promiseFn: PromiseFn<R,P>,
+  promiseFn: PromiseFn<R, P>,
   depListOrOptions: any[] | PromiseOptions<R>
-): PromiseRes<PromiseFn<R,P>, R>
+): PromiseRes<PromiseFn<R, P>, R>;
 function usePromise<R, P extends any[]>(
-  promiseFn: PromiseFn<R,P>,
+  promiseFn: PromiseFn<R, P>,
   depList: any[],
-  options: PromiseOptions<R>,
-): PromiseRes<PromiseFn<R,P>, R>
+  options: PromiseOptions<R>
+): PromiseRes<PromiseFn<R, P>, R>;
 /**
  * 用于封装请求的自定义hooks方法
  * @param {PromiseFn<R, P>} promiseFn 传入的promise方法
@@ -48,52 +46,55 @@ function usePromise<R, P extends any[]>(
  * @returns {PromiseRes<PromiseFn<R, P>, R>}
  */
 function usePromise<R, P extends any[]>(
-  promiseFn: PromiseFn<R,P>,
+  promiseFn: PromiseFn<R, P>,
   depList?: any[] | PromiseOptions<R>,
-  options?: PromiseOptions<R>,
-): PromiseRes<PromiseFn<R,P>, R> {
+  options?: PromiseOptions<R>
+): PromiseRes<PromiseFn<R, P>, R> {
   //重载
-  let _options:PromiseOptions<R>
-  let _depList: any[]
-  _depList = isArray(depList) ? depList : []
-  _options = (isPlainObject(depList) && !isArray(depList)) ? depList : (options || {})
+  let _options: PromiseOptions<R>;
+  let _depList: any[];
+  _depList = isArray(depList) ? depList : [];
+  _options = isPlainObject(depList) && !isArray(depList) ? depList : options || {};
 
-  const {defaultData = {data: {}}, immediate, defaultLoading = true} = _options;
+  const { defaultData = { data: {} }, immediate, defaultLoading = true } = _options;
   const [loading, setLoading] = useState(defaultLoading);
   // 这边为了繁殖默认报错 这边就直接强行类型断言就可以了
   const [data, setData] = useState<R>(defaultData as R);
   const [error, setError] = useState<Error | null>(null);
 
   // 返回出去的promise函数
-  const returnPromise = useCallback(async (...params: P) => {
-    try {
-      setError(null);
-      setLoading(true);
-      const result = await promiseFn(...params);
-      setData(result);
-      setLoading(false);
-      return result
-    } catch (e) {
-      setLoading(false);
-      setError(e);
-      return Promise.reject(e)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [..._depList])
+  const returnPromise = useCallback(
+    async (...params: P) => {
+      try {
+        setError(null);
+        setLoading(true);
+        const result = await promiseFn(...params);
+        setData(result);
+        setLoading(false);
+        return result;
+      } catch (e) {
+        setLoading(false);
+        setError(e);
+        return Promise.reject(e);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [..._depList]
+  );
 
   useEffect(() => {
-    if(immediate) {
+    if (immediate) {
       // @ts-ignore
-      returnPromise()
+      returnPromise();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
   return {
     promiseFn: returnPromise,
     res: data,
     loading,
-    error,
+    error
   };
 }
 
-export default usePromise
+export default usePromise;
