@@ -6,7 +6,7 @@
     "dev": "cross-env NODE_ENV=development TS_NODE_PROJECT='./server/tsconfig.json' ts-node-dev --respawn  --transpileOnly --ignore-watch=.next --ignore-watch=node_modules --ignore-watch=src server/index.ts",
     "build:next": "next build",
     "build:server": "tsc -p ./server",
-    "start:server": "cross-env NODE_ENV=production pm2 start ./dist -i max",
+    "start:server": "cross-env NODE_ENV=production node ./dist",
     "server": "npm-run-all -p build:server build:next -s start:server",
     "start": "next start -p 8088",
     "local": "next dev",

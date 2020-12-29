@@ -3,3 +3,4 @@ MAINTAINER "carrotWu@gmail.com"
 COPY . .
 
 EXPOSE 8088
+CMD ["yarn", "server"]
