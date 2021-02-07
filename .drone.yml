@@ -42,7 +42,7 @@ steps:
   - name: deployment
     image: sinlead/drone-kubectl
     settings:
-      kubernetes_server: k8sServer            # k8s 集群地址
+      kubernetes_server: https://172.17.16.12:6443            # k8s 集群地址
       namespace: blog-project
       kubernetes_token:
         from_secret: k8sToken
