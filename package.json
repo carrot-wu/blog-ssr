@@ -5,13 +5,15 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development TS_NODE_PROJECT='./server/tsconfig.json' ts-node-dev --respawn  --transpileOnly --ignore-watch=.next --ignore-watch=node_modules --ignore-watch=src server/index.ts",
     "build:next": "next build",
-    
     "build:server": "tsc -p ./server",
     "start:server": "cross-env NODE_ENV=production node ./dist",
     "server": "npm-run-all -p build:server build:next -s start:server",
     "start": "next start -p 8088",
     "local": "next dev",
-    "lint": "eslint src --ext .ts --ext .tsx --fix"
+    "lint": "eslint src --ext .ts --ext .tsx --fix",
+    "docker:package": "docker build -f NodeModulesDockerfile -t docker.carrotwu.com/blog/blog-ssr-node-modules . --no-cache",
+    "docker:push": "docker push docker.carrotwu.com/blog/blog-ssr-node-modules",
+    "docker:build": "yarn docker:package && yarn docker:push"
   },
   "dependencies": {
     "@carrotwu/generatoc": "^1.0.1",

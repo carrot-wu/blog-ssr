@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: APP_NAME
+  namespace: NAMESPACE
+  labels:
+    k8s-app: APP_NAME
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      # 滚动过程中最多可创建的pod数量
+      maxSurge: 1
+      # 最多有几个pod处于无法服务状态
+      maxUnavailable: 1
+  minReadySeconds: 10
+  selector:
+    matchLabels:
+      k8s-app: APP_NAME
+  template:
+    metadata:
+      labels:
+        k8s-app: APP_NAME
+    spec:
+      containers:
+      - name: APP_NAME
+        image: docker.carrotwu.com/blog/IMAGE_NAME:TAG
+        env:
+          - name: TZ
+            value: "Asia/Shanghai"
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 300m
+            memory: 456Mi
+        ports:
+        - name: http
+          containerPort: 8088
+      imagePullSecrets:
+        - name: harbor
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: APP_NAME
+  name: APP_NAME
+  namespace: NAMESPACE
+spec:
+  ports:
+    - port: 80
+      targetPort: 8088
+  selector:
+    k8s-app: APP_NAME
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: APP_NAME-nodeport
+  name: APP_NAME-nodeport
+  namespace: NAMESPACE
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      nodePort: 30003
+      targetPort: 8088
+  selector:
+    k8s-app: APP_NAME
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: blog-project
